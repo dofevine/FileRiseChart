@@ -24,7 +24,7 @@ jobs:
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.7.0
         with:
-          charts_dir: chart
+          charts_dir: /
         env:
           CR_TOKEN: "${{ secrets.CHART_TOKEN }}"
           CR_GIT_REPO: "dofevine/charts"
