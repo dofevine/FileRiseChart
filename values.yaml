@@ -18,7 +18,7 @@ env:
   PERSISTENT_TOKENS_KEY: "change_me"
   SCAN_ON_START: "true"
   CHOWN_ON_START: "true"
-  HTTP_PORT: "8080"
+  HTTP_PORT: "80"
   # FR_BASE_PATH: "/files"
   # FR_PUBLISHED_URL: "http://127.0.0.1/files"
   # FR_TRUSTED_PROXIES: "10.0.0.0/8"
@@ -38,7 +38,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 8080
+  port: 80
 
 ingress:
   enabled: false
@@ -82,7 +82,7 @@ autoscaling:
   minReplicas: 1
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
-  targetMemoryUtilizationPercentage: 2Gi
+  targetMemoryUtilizationPercentage: 80
 
 volumes:
   - name: uploads
