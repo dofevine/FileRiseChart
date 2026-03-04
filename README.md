@@ -29,7 +29,7 @@ helm install filerise ./filerise
 Below are the main configurable parameters available in `values.yaml`.
 
 | Parameter | Description | Default |
-|------------|------------|----------|
+| ------------ | ------------ | ---------- |
 | `replicaCount` | Number of Deployment replicas | `1` |
 | `image.repository` | Container image repository | `error311/filerise-docker` |
 | `image.tag` | Image tag | `v3.5.2` |
@@ -46,28 +46,29 @@ Below are the main configurable parameters available in `values.yaml`.
 | `ingress.className` | Ingress class | `""` |
 | `ingress.hosts` | Configured hosts | `""` |
 | `ingress.tls` | TLS configuration | `[]` |
-| `httpRoute.enabled` | Enable HTTPRoute |
-| `httpRoute.parentRefs` | Target Gateway |
-| `httpRoute.hostnames` | Hostnames |
-| `httpRoute.rules` | Routing rules |
+| `httpRoute.enabled` | Enable HTTPRoute | `false` |
+| `httpRoute.annotations` | Annotations | `{}` |
+| `httpRoute.parentRefs` | Target Gateway | `{}` |
+| `httpRoute.hostnames` | Hostnames | `[]` |
+| `httpRoute.rules` | Routing rules | `{}` |
 | `autoscaling.enabled` | Enable HPA | `false` |
 | `autoscaling.minReplicas` | Minimum replicas | `1` |
 | `autoscaling.maxReplicas` | Maximum replicas | `10` |
 | `autoscaling.targetCPUUtilizationPercentage` | CPU utilization target | `80` |
 | `autoscaling.targetMemoryUtilizationPercentage` | Memory utilization target | `2Gi` |
-| volumes | list of volumes. See values.yaml | [] |
-| storage.keep | Enable helm resource policy keep | `true` |
-| storage.storageClass | Storage Class name. If empty will use cluster default | "" |
-| storage.metadata.size | Size of pvc used for metadata | [] |
-| storage.users.size | Size of pvc used for metadata | [] |
-| storage.uploads.size | Size of pvc used for metadata | [] |
+| `volumes` | list of volumes. See values.yaml | [] |
+| `storage.keep` | Enable helm resource policy keep | `true` |
+| `storage.storageClass` | Storage Class name. If empty will use cluster default | "" |
+| `storage.metadata.size` | Size of pvc used for metadata | [] |
+| `storage.users.size` | Size of pvc used for metadata | [] |
+| `storage.uploads.size` | Size of pvc used for metadata | [] |
 | `nodeselector` | Definition of the node that the pod will run. See [k8s docs](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/) | `{}` |
 | `affinity` | Definition of pod affinity and anti-affity. See [k8s docs](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/) | `{}` |
 
 ## Environment Variables
 
 | Variable | Description | Default |
-|-----------|------------|----------|
+| ----------- | ------------ | ---------- |
 | `TIMEZONE` | Application timezone | `America/New_York` |
 | `TOTAL_UPLOAD_SIZE` | Total upload size limit | `1G` |
 | `SECURE` | Enable secure mode | `false` |
