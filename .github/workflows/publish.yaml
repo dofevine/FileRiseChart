@@ -27,9 +27,19 @@ jobs:
       - name: Move package to root
         run: |
           mv packaged/*.tgz .
-
+      - name: Clone Helm repository
+        run: |
+          git clone https://x-access-token:${{ secrets.CHART_TOKEN }}@github.com/dofevine/charts.git charts
+      - name: Copy package to Charts
+        run: |
+          cp packaged/*.tgz charts/
+      - name: Update Helm index
+        run: |
+          cd charts
+          helm repo index .
       - name: Commit and Push
         run: |
+          cd charts
           git config user.name "Domingos Neto"
           git config user.email "dofevine@hotmail.com"
           git add .
