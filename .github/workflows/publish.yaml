@@ -31,5 +31,6 @@ jobs:
           mkdir -p packaged
           helm package chart -d packaged
           chart_name=$(find -name  '*.tgz' -print)
-          helm push $chart_name oci://ghcr.io/${{ github.repository }}         
-  
+          helm push $chart_name oci://${REGISTRY,,}       
+        env:
+          REGISTRY: "ghcr.io/${{ github.repository }}"
