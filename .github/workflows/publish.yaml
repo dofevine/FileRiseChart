@@ -31,4 +31,4 @@ jobs:
           mkdir -p packaged
           helm package chart -d packaged
           chart_name=$(find -name  '*.tgz' -print)
-          helm push $chart_name oci://ghcr.io/${GITHUB_REPOSITORY@L}
+          helm push $chart_name oci://ghcr.io/dofevine/charts
