@@ -29,4 +29,6 @@ jobs:
           pages_branch: main
         env:
           CR_TOKEN: "${{ secrets.CHART_TOKEN }}"
+          CR_REPO: "dofevine/charts"
+          CR_OWNER: "dofevine"
           
