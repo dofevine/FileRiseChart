@@ -27,7 +27,6 @@ jobs:
           charts_dir: "./"
           config: cr.yaml
           pages_branch: main
-          repository: "dofevine/charts"
         env:
           CR_TOKEN: "${{ secrets.CHART_TOKEN }}"
           
