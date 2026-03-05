@@ -1,32 +1,39 @@
-name: Release Charts
+name: Helm Package and Publish
 
 on:
   push:
     branches:
       - main
+    paths:
+      - 'chart/**'
 
 jobs:
-  release:
-    permissions:
-      contents: write
+  package-and-publish:
     runs-on: ubuntu-latest
+    permissions:
+          contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Configure Git
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+
+      - name: Package Helm Chart
+        run: |
+          mkdir -p packaged
+          helm package chart -d packaged
+
+      - name: Move package to root
+        run: |
+          mv packaged/*.tgz .
+
+      - name: Commit and Push
         run: |
           git config user.name "Domingos Neto"
           git config user.email "dofevine@hotmail.com"
-          
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.7.0
-        with:
-          charts_dir: "./"
-          config: cr.yaml
-          pages_branch: main
-        env:
-          CR_TOKEN: "${{ secrets.CHART_TOKEN }}"
-          
+          git add .
+          git commit -m "Update and Push helm package"
+          git push
