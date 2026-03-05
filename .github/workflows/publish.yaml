@@ -9,7 +9,7 @@ jobs:
   package-and-publish:
     runs-on: ubuntu-latest
     permissions:
-          contents: write
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,10 +23,6 @@ jobs:
         run: |
           mkdir -p packaged
           helm package chart -d packaged
-
-      - name: Move package to root
-        run: |
-          mv packaged/*.tgz .
       - name: Clone Helm repository
         run: |
           git clone https://x-access-token:${{ secrets.CHART_TOKEN }}@github.com/dofevine/charts.git charts
