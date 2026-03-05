@@ -3,41 +3,32 @@ name: Helm Package and Publish
 on:
   push:
     branches:
-      - main
+      - feature/ghcr
 
 jobs:
-  package-and-publish:
-    runs-on: ubuntu-latest
+  package-helm-chart:
     permissions:
-      contents: write
+      contents: read
+      packages: write
+
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0      
 
-      - name: Setup Helm
-        uses: azure/setup-helm@v4
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@e92390c5fb421da1463c202d546fed0ec5c39f20
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
 
-      - name: Package Helm Chart
+      - name: Package and push helm chart
         run: |
           mkdir -p packaged
           helm package chart -d packaged
-      - name: Clone Helm repository
-        run: |
-          git clone https://x-access-token:${{ secrets.CHART_TOKEN }}@github.com/dofevine/charts.git charts
-      - name: Copy package to Charts
-        run: |
-          cp packaged/*.tgz charts/
-      - name: Update Helm index
-        run: |
-          cd charts
-          helm repo index .
-      - name: Commit and Push
-        run: |
-          cd charts
-          git config user.name "Domingos Neto"
-          git config user.email "dofevine@hotmail.com"
-          git add .
-          git commit -m "Update and Push helm package"
-          git push
+          helm push ./*.tgz ghcr.io/${{ github.repository }}         
+  
