@@ -28,4 +28,4 @@ jobs:
           pages_branch: main
         env:
           CR_TOKEN: "${{ secrets.CHART_TOKEN }}"
-          CR_GIT_REPO: "dofevine/charts"
+          GITHUB_REPOSITORY: "dofevine/charts"
